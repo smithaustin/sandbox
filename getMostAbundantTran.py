@@ -35,10 +35,14 @@ for (i, name) in enumerate(codebook[0]):
     for id in gene_transcripts_ids:
         print(id)
         if len(abundance[abundance['target_id'].str.match(id)]['tpm']) < 1:
-            print(("----------------------------could not find id " + id + '\n')*3)
+            print(("----------------------------could not find id " + id + '\n'))
             continue
         transcript_abundance.append(float(abundance[abundance['target_id'].str.match(id)]['tpm']))
         transcript_ids_list.append(id)
+    
+    if len(transcript_ids_list) < 1:
+        print("No transcripts could be selected :(")
+        continue
     
     print(transcript_abundance)
     idx = int(np.argmax(transcript_abundance))
